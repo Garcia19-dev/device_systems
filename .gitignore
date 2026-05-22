@@ -1,0 +1,42 @@
+# Entorno virtual
+fastapi_env/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos compilados
+*.so
+
+# Distribución / empaquetado
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# Logs
+*.log
+
+# Variables de entorno
+.env
+
+# Configuración de VS Code
+.vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Archivos temporales
+*.tmp
+*.temp
