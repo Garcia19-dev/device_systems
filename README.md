@@ -141,3 +141,5 @@ curl -X POST "http://localhost:8000/users" \
 
 FastAPI es un framework moderno y rápido para construir APIs con Python. Me gustó mucho por su simplicidad y eficiencia. Al usar type hints, FastAPI puede validar automáticamente los datos de entrada y salida, lo que reduce errores y mejora la calidad del código. Además, la documentación automática con Swagger UI es muy útil para probar y entender las APIs. La velocidad de desarrollo es increíble, ya que no necesitas escribir tanta lógica de validación manual. En resumen, FastAPI es una excelente opción para construir APIs modernas y eficientes.
 
+#### Link del video de explicacion
+https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
