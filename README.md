@@ -18,6 +18,7 @@ Este es un proyecto de API REST construido con FastAPI para gestionar dispositiv
 
 ### Estructura de proyecto
 
+```bash
 device_systems_python/
 │── app/
 │   │── main.py
@@ -33,6 +34,7 @@ device_systems_python/
 │       └── user_service.py
 │── requirements.txt
 └── README.md
+```
 
 
 ### Instalación de dependencias
