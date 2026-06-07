@@ -363,3 +363,6 @@ FastAPI es un framework moderno y rápido para construir APIs con Python. Me gus
 
 #### Link del video de explicacion
 https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
+
+#### Link parte 2;
+https://www.loom.com/share/e7075bf1c1c6493891621e42516b140f
