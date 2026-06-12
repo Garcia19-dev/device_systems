@@ -1,7 +1,16 @@
+# app/main.py
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+# 1. Importamos la función de creación de tablas y el modelo para que SQLAlchemy lo registre
+from app.database.connection import create_tables
+from app.models.user_model import User  # ¡Crucial para que detecte la tabla 'users'!
+
 from app.routes.user_routes import router as user_router
+
+# 2. Ejecutamos la creación automática de tablas antes de instanciar la API
+create_tables()
 
 # ─────────────────────────────────────────────
 # Metadatos de la API (Swagger / OpenAPI)
@@ -21,9 +30,10 @@ API REST para la **gestión de usuarios** del sistema device_systems.
 - ✅ Validaciones con Pydantic v2
 - ✅ Manejo de errores con HTTPException
 - ✅ Dependency Injection con Depends()
+- ✅ Uso de SQLAlchemy para la gestión de la base de datos
 
 ### Roles permitidos
-`admin` | `viewer` | `support` | `editor`
+`admin` |  `editor` | `user`
 """
 
 tags_metadata = [

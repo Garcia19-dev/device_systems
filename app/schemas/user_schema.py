@@ -4,12 +4,13 @@ from pydantic import BaseModel, EmailStr, field_validator
 from typing import Optional
 
 # Roles permitidos
-ALLOWED_ROLES = {"admin", "viewer", "support", "editor", "user"}
+ALLOWED_ROLES = {"admin", "support", "user"}
 
 class UserCreate(BaseModel):
     """Schema para crear usuarios (POST)."""
     name: str
     email: EmailStr
+    password: str
     role: str
     is_active: bool = True
 
@@ -52,7 +53,7 @@ class UserUpdate(BaseModel):
             )
         return v
 
-class UserPartialUpdate(BaseModel):
+class UserPatch(BaseModel):
     """Schema para actualización parcial (PATCH)."""
     name: Optional[str] = None
     email: Optional[EmailStr] = None

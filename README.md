@@ -361,6 +361,59 @@ def validate_role(role: Optional[str] = Query(default=None)) -> Optional[str]:
 
 FastAPI es un framework moderno y rápido para construir APIs con Python. Me gustó mucho por su simplicidad y eficiencia. Al usar type hints, FastAPI puede validar automáticamente los datos de entrada y salida, lo que reduce errores y mejora la calidad del código. Además, la documentación automática con Swagger UI es muy útil para probar y entender las APIs. La velocidad de desarrollo es increíble, ya que no necesitas escribir tanta lógica de validación manual. En resumen, FastAPI es una excelente opción para construir APIs modernas y eficientes.
 
+
+## ------------------------------------------------------------------
+# Fase Integracion del SQLALCHEMY
+
+
+### Capturas
+
+#### Estructura del proyecto
+![estrura](/images/fase_3/estructura.png)
+
+#### Base de datos
+![database](/images/fase_3/database.png)
+
+#### Swagger IU
+![Swagger IU](/images/fase_3/SwIU.png)
+
+#### Endpoints probados
+* Metodo GET
+![get](/images/fase_3/Get.png)
+
+* Metodo POST
+![post](/images/fase_3/post.png)
+
+* Metodo GET ID
+![get_id](/images/fase_3/getid.png)
+
+* Metodo PUT
+![put](/images/fase_3/put.png)
+
+* Metodo PATCH
+![patch](/images/fase_3/patch.png)
+
+* Metodo DELETE
+![delete](/images/fase_3/delete.png)
+
+
+#### Errores controlados
+- Error sobre usuario no encontrado
+![error 1](/images/fase_3/errors/error1.png)
+
+- Error sobre el formato valido de roles
+![error 2](/images/fase_3/errors/error2.png)
+
+- Error sobre correos duplicados
+![error 3](/images/fase_3/errors/error3.png)
+
+### Explicacion sobre las diferencios entre SQLAlchemy y Schema Pydantic
+SQLAlchemy se encarga de trabajar con la base de datos. Permite crear tablas, guardar información, actualizar registros, eliminarlos y consultar los datos almacenados.
+
+Por otro lado, Pydantic Schema se utiliza para validar la información que recibe o envía la aplicación. Su objetivo es comprobar que los datos tengan el formato correcto antes de ser procesados o enviados al usuario.
+
+### Reflexion final
+Durante el desarrollo de este proyecto fue posible comprender mejor cómo organizar una aplicación utilizando diferentes herramientas para cada tarea. También se aprendió la importancia de validar la información antes de almacenarla y de mantener una buena estructura en el código para facilitar su mantenimiento.
 #### Link del video de explicacion
 https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
 
