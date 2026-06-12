@@ -5,7 +5,7 @@ from typing import List, Optional
 from app.schemas.user_schema import (
     UserCreate,
     UserUpdate,
-    UserPartialUpdate,
+    UserPatch,
     UserResponse,
 )
 
@@ -111,7 +111,7 @@ def update_user(data: UserUpdate, user: dict = Depends(get_user_or_404)):
     ),
     response_description="Usuario actualizado parcialmente",
 )
-def partial_update_user(data: UserPartialUpdate, user: dict = Depends(get_user_or_404)):
+def partial_update_user(data: UserPatch, user: dict = Depends(get_user_or_404)):
     return user_service.partial_update_user(user["id"], data)
 
 
