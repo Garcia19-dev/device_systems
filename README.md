@@ -18,6 +18,7 @@ Este es un proyecto de API REST construido con FastAPI para gestionar dispositiv
 
 ### Estructura de proyecto
 
+```bash
 device_systems_python/
 │── app/
 │   │── main.py
@@ -33,6 +34,7 @@ device_systems_python/
 │       └── user_service.py
 │── requirements.txt
 └── README.md
+```
 
 
 ### Instalación de dependencias
@@ -475,3 +477,11 @@ Este proyecto permitió comprender mejor la organización de una aplicación med
 
 También se reafirmó la necesidad de validar los datos antes de almacenarlos, y de mantener un código bien estructurado para asegurar su mantenibilidad y escalabilidad a futuro.
 
+#### Link del video de explicacion
+https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
+
+#### Link parte 2;
+https://www.loom.com/share/e7075bf1c1c6493891621e42516b140f
+
+#### Link parte 3
+https://www.loom.com/share/a3d7f8d9d7ba4caf8af19650c7a44c0c
