@@ -414,6 +414,69 @@ Por otro lado, Pydantic Schema se utiliza para validar la información que recib
 
 ### Reflexion final
 Durante el desarrollo de este proyecto fue posible comprender mejor cómo organizar una aplicación utilizando diferentes herramientas para cada tarea. También se aprendió la importancia de validar la información antes de almacenarla y de mantener una buena estructura en el código para facilitar su mantenimiento.
+
+## ------------------------------------------------------------------
+# Fase Integracion de migraciones
+
+### Comandos ejecutados
+#### iniciar migraciones
+```bash
+alembic init alembic
+```
+![alembic init](/images/fase_4/alembic_init.png)
+
+#### Crear primera migracion
+```bash
+alembic revision --autogenerate -m "create devices and loans tables"
+```
+* Se creo el archivo de migracion en la carpeta alembic/versions, pero me aparace asi por que yo ya la habia creado anteriormente.
+
+![alembic revision](/images/fase_4/alembic_generate.png)
+
+
+#### Aplicar migracion
+```bash
+alembic upgrade head
+```
+* lo mismo para esta captura, ya que la habia ejecutado anteriormente.
+![alembic upgrade](/images/fase_4/alembic_head.png)
+
+#### Verificar migracion
+```bash
+alembic history
+```
+![alembic history](/images/fase_4/alembic_his.png)
+
+
+### Captura de las tablas creadas
+![tablas creadas](/images/fase_4/tablas_generadas.png)
+
+### Captura del Swagger
+![swagger](/images/fase_4/SwaggerIU.png)
+
+### Captura de la creacion de Usuario, Dispositivo y Prestamo
+* Creacion de Usuario
+![creacion](/images/fase_4/create_user.png)
+* Creacion de Dispositivo
+![creacion](/images/fase_4/create_device.png)
+* Creacion de Prestamo
+![creacion](/images/fase_4/create_loans.png)
+
+### Captura de Filtros aplicados y consulta con join
+* Consulta con join de loans
+![consulta](/images/fase_4/get_loans_joins.png)
+* Filtro por estado activo
+![consulta](/images/fase_4/joins_loans_active.png)
+
+### Captura de devolucion de prestamo
+* Devolucion de prestamo
+![consulta](/images/fase_4/return_loans.png)
+
+### Reflexión sobre la importancia de migraciones, relaciones y consultas avanzadas.
+Este proyecto permitió comprender mejor la organización de una aplicación mediante el uso de herramientas específicas para cada capa. Se destacó la importancia de las migraciones para gestionar cambios en la base de datos, así como el valor de definir relaciones claras entre entidades y emplear consultas avanzadas que optimicen el rendimiento.
+
+También se reafirmó la necesidad de validar los datos antes de almacenarlos, y de mantener un código bien estructurado para asegurar su mantenibilidad y escalabilidad a futuro.
+
 #### Link del video de explicacion
 https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
 
