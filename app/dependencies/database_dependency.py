@@ -1,4 +1,3 @@
-import sqlalchemy.orm as orm
 from app.database.connection import SessionLocal
 
 def get_db():

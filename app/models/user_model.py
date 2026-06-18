@@ -11,3 +11,5 @@ class User(Base):
     role = sa.Column(sa.String, index=True)
     is_active = sa.Column(sa.Boolean, default=True)
     created_at = sa.Column(sa.DateTime, default=sa.func.now())
+
+    loans = relationship("Loan", back_populates="user")
