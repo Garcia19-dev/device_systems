@@ -1,5 +1,11 @@
-from fastapi import APIRouter, HTTPException, status, Query
+# app/routes/loan_routes.py
+
+from fastapi import APIRouter, Depends, status, Request, Query  # 🔥 Agrega Request aquí
 from typing import List, Optional
+from app.main import limiter
+
+# 🔐 Importamos las dependencias de control de acceso (Fase 8)
+from app.dependencies.auth_dependency import get_current_active_user, RoleChecker
 
 from app.schemas.loan_schema import (
     LoanCreate,
@@ -28,23 +34,25 @@ router = APIRouter(
     response_model=List[LoanDetailResponse],
     status_code=status.HTTP_200_OK,
     summary="Listar préstamos",
-    description="Retorna la lista completa de préstamos con filtros opcionales."
+    description="Retorna la lista completa de préstamos con filtros opcionales. 🔒 **Requiere:** Usuario autenticado."
 )
 def get_loans(
     status: Optional[str] = Query(None, description="Filtrar por estado (active, returned, overdue)"),
     user_email: Optional[str] = Query(None, description="Filtrar por email de usuario"),
-    device_type: Optional[str] = Query(None, description="Filtrar por tipo de dispositivo")
+    device_type: Optional[str] = Query(None, description="Filtrar por tipo de dispositivo"),
+    current_user = Depends(get_current_active_user) # 🔐 Protegida
 ):
     return get_all_loans(status=status, user_email=user_email, device_type=device_type)
 
 
-# GET /loans/details - Listar préstamos con detalles (alias de /)
+# GET /loans/details - Listar préstamos con detalles
 @router.get(
     "/details", 
     response_model=List[LoanDetailResponse],
     status_code=status.HTTP_200_OK,
     summary="Listar préstamos con detalles",
-    description="Retorna la lista completa de préstamos con detalles de usuario y dispositivo."
+    description="Retorna la lista completa de préstamos con detalles. 🔒 **Requiere:** Admin o Support.",
+    dependencies=[Depends(RoleChecker(["admin", "support"]))] # 🔐 Fase 8: Solo Admin o Support
 )
 def get_loans_details(
     status: Optional[str] = Query(None, description="Filtrar por estado (active, returned, overdue)"),
@@ -60,9 +68,12 @@ def get_loans_details(
     response_model=LoanDetailResponse,
     status_code=status.HTTP_200_OK,
     summary="Obtener préstamo",
-    description="Retorna un préstamo específico por su ID con detalles."
+    description="Retorna un préstamo específico por su ID con detalles. 🔒 **Requiere:** Usuario autenticado."
 )
-def get_loan_by_id_route(id: int):
+def get_loan_by_id_route(
+    id: int,
+    current_user = Depends(get_current_active_user) # 🔐 Protegida
+):
     return get_loan_by_id(loan_id=id)
 
 
@@ -72,9 +83,14 @@ def get_loan_by_id_route(id: int):
     response_model=LoanDetailResponse,
     status_code=status.HTTP_201_CREATED,
     summary="Crear préstamo",
-    description="Crea un nuevo préstamo. Valida usuario, dispositivo y disponibilidad."
+    description="Crea un nuevo préstamo. Valida usuario, dispositivo y disponibilidad. 🔒 **Requiere:** Usuario autenticado."
 )
-def create_loan_route(loan: LoanCreate):
+@limiter.limit("10/minute")
+def create_loan_route(
+    request: Request, # 🔥 SOLUCIÓN AL ERROR: Requerido por el limiter
+    loan: LoanCreate,
+    current_user = Depends(get_current_active_user) # 🔐 Fase 8: Usuario autenticado
+):
     return create_loan(data=loan)
 
 
@@ -84,32 +100,38 @@ def create_loan_route(loan: LoanCreate):
     response_model=LoanDetailResponse,
     status_code=status.HTTP_200_OK,
     summary="Devolver préstamo",
-    description="Devuelve un préstamo, cambia el estado a returned y libera el dispositivo."
+    description="Devuelve un préstamo, cambia el estado a returned y libera el dispositivo. 🔒 **Requiere:** Admin o Support.",
+    dependencies=[Depends(RoleChecker(["admin", "support"]))] # 🔐 Fase 8: Solo Admin o Support
 )
 def return_loan_route(id: int):
     return return_loan(loan_id=id)
 
 
-# GET /users/{id}/loans - Obtener préstamos de un usuario
+# GET /loans/users/{id}/loans - Obtener préstamos de un usuario (Se corrigió el path para consistencia del router)
 @router.get(
     "/users/{user_id}/loans", 
     response_model=List[LoanDetailResponse],
     status_code=status.HTTP_200_OK,
     summary="Préstamos de usuario",
-    description="Retorna todos los préstamos de un usuario específico."
+    description="Retorna todos los préstamos de un usuario específico. 🔒 **Requiere:** Usuario autenticado."
 )
-def get_user_loans(user_id: int):
+def get_user_loans(
+    user_id: int,
+    current_user = Depends(get_current_active_user) # 🔐 Protegida
+):
     return get_loans_by_user(user_id=user_id)
 
 
-# GET /devices/{id}/loans - Obtener préstamos de un dispositivo
+# GET /loans/devices/{id}/loans - Obtener préstamos de un dispositivo (Se corrigió el path para consistencia del router)
 @router.get(
     "/devices/{device_id}/loans", 
     response_model=List[LoanDetailResponse],
     status_code=status.HTTP_200_OK,
     summary="Préstamos de dispositivo",
-    description="Retorna todos los préstamos de un dispositivo específico."
+    description="Retorna todos los préstamos de un dispositivo específico. 🔒 **Requiere:** Usuario autenticado."
 )
-def get_device_loans(device_id: int):
+def get_device_loans(
+    device_id: int,
+    current_user = Depends(get_current_active_user) # 🔐 Protegida
+):
     return get_loans_by_device(device_id=device_id)
-

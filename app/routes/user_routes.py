@@ -1,6 +1,12 @@
-# pyrefly: ignore [missing-import]
-from fastapi import APIRouter, Depends, status
+# app/routes/user_routes.py
+
+# ➡️ pyrefly: ignore [missing-import]
+from fastapi import APIRouter, Depends, status, Request  # 🔥 Agregado Request aquí
 from typing import List, Optional
+from app.main import limiter
+
+# 🔐 Importamos los guardianes de autenticación y autorización (Fase 8)
+from app.dependencies.auth_dependency import get_current_active_user, RoleChecker
 
 from app.schemas.user_schema import (
     UserCreate,
@@ -30,13 +36,17 @@ router = APIRouter(prefix="/users", tags=["Users"])
     summary="Listar usuarios",
     description=(
         "Retorna la lista completa de usuarios registrados. "
-        "Se puede filtrar por **role** y/o **is_active** mediante query params."
+        "Se puede filtrar por **role** y/o **is_active** mediante query params. "
+        "🔒 **Requiere:** Usuario autenticado."
     ),
     response_description="Lista de usuarios encontrados",
 )
+@limiter.limit("30/minute")
 def list_users(
+    request: Request,  # 🔥 SOLUCIÓN AL ERROR: Parámetro obligatorio para SlowAPI
     role: Optional[str] = Depends(validate_role),
     is_active: Optional[bool] = None,
+    current_user = Depends(get_current_active_user),  # 🔐 Fase 8: Protege la ruta con Token JWT
 ):
     return user_service.get_all_users(role=role, is_active=is_active)
 
@@ -50,10 +60,13 @@ def list_users(
     response_model=UserResponse,
     status_code=status.HTTP_200_OK,
     summary="Obtener usuario por ID",
-    description="Retorna los datos de un usuario específico identificado por su **user_id**.",
+    description="Retorna los datos de un usuario específico identificado por su **user_id**. 🔒 **Requiere:** Usuario autenticado.",
     response_description="Datos del usuario encontrado",
 )
-def get_user(user: dict = Depends(get_user_or_404)):
+def get_user(
+    user: dict = Depends(get_user_or_404),
+    current_user = Depends(get_current_active_user),  # 🔐 Fase 8: Protege la ruta
+):
     return UserResponse(**user)
 
 

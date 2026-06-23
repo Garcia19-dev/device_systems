@@ -477,6 +477,61 @@ Este proyecto permitió comprender mejor la organización de una aplicación med
 
 También se reafirmó la necesidad de validar los datos antes de almacenarlos, y de mantener un código bien estructurado para asegurar su mantenibilidad y escalabilidad a futuro.
 
+## ------------------------------------------------------------------
+# Fase Integracion de seguridad y autenticacion
+
+### Estructura del proyecto
+
+![estructura](/images/fase_5/estruc_1.png)
+![estructura](/images/fase_5/estruc_2.png)
+
+### Migracion con alembic
+![alembic](/images/fase_5/alem_migr.png)
+![alembic](/images/fase_5/alem_head.png)
+
+### Registro de usuario
+![registro](/images/fase_5/create_user.png)
+
+### Login de usuario mas token generado
+![login](/images/fase_5/login_jwt.png)
+
+### El GET /me
+![me](/images/fase_5/get_me.png)
+
+### acceso sin token
+![acceso sin token](/images/fase_5/get_no_token.png)
+
+
+### Acceso sin rol permitido
+![acceso sin rol](/images/fase_5/role_not.png)
+
+### Captura del Swagger con seguridad
+![swagger con seguridad](/images/fase_5/swaggerIU.png)
+
+### Cabeceras de moddleware
+![cabeceras](/images/fase_5/middlewares.png)
+
+
+### Aplicacion del Rite Limit
+![rate limit](/images/fase_5/rate_limit.png)
+
+
+### Explicacion de CORS configurados
+Los cors configurados son los siguientes:
+* Origen: http://localhost:3000
+* Metodos: GET, POST, PUT, DELETE, OPTIONS
+* Headers: Content-Type, Authorization
+* Expose Headers: Content-Type, 
+
+Explicacion: 
+* Origen: http://localhost:3000 - Permite que la aplicacion frontend se conecte al backend solo para esas urls o si lo quieres modificar puedes agregar mas urls o poner todas con ["*"] para permitir todas las urls
+* Metodos: GET, POST, PUT, DELETE, OPTIONS - Permite todos los metodos HTTP
+* Headers: Content-Type, Authorization - Permite los headers Content-Type y Authorization
+* Expose Headers: Content-Type, - Expose los headers Content-Type y Authorization
+
+# reflexion final
+
+La seguridad en APIs REST no es un complemento opcional, sino un pilar fundamental que debe integrarse desde el inicio del desarrollo, porque cada endpoint expuesto representa una puerta de entrada a datos sensibles que debemos proteger. A lo largo de este proceso hemos comprendido que la autenticación con JWT, el control de acceso basado en roles, el rate limiting y el hash seguro de contraseñas no son medidas aisladas, sino capas que trabajan en conjunto para crear un sistema robusto bajo el principio de defensa en profundidad, donde la validación constante de tokens y permisos en cada petición nos recuerda que nunca debemos confiar ciegamente en el cliente. Los errores cometidos —como no enviar correctamente el token en el header `Authorization`, confundir autenticación con autorización o descuidar el rate limiting— nos han enseñado que los detalles aparentemente pequeños tienen grandes implicaciones en la seguridad. Sin embargo, esto es solo el comienzo, porque en producción la seguridad exige HTTPS, monitoreo continuo, logs de auditoría y renovación periódica de claves, reflejando que la seguridad no es un destino sino un proceso evolutivo donde cada decisión de diseño cuenta y donde proteger los datos del usuario no es solo una obligación técnica, sino un compromiso ético que define la confianza depositada en nuestro sistema.
 #### Link del video de explicacion
 https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
 
