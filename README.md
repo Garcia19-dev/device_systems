@@ -18,6 +18,7 @@ Este es un proyecto de API REST construido con FastAPI para gestionar dispositiv
 
 ### Estructura de proyecto
 
+```bash
 device_systems_python/
 │── app/
 │   │── main.py
@@ -33,6 +34,7 @@ device_systems_python/
 │       └── user_service.py
 │── requirements.txt
 └── README.md
+```
 
 
 ### Instalación de dependencias
@@ -530,3 +532,14 @@ Explicacion:
 # reflexion final
 
 La seguridad en APIs REST no es un complemento opcional, sino un pilar fundamental que debe integrarse desde el inicio del desarrollo, porque cada endpoint expuesto representa una puerta de entrada a datos sensibles que debemos proteger. A lo largo de este proceso hemos comprendido que la autenticación con JWT, el control de acceso basado en roles, el rate limiting y el hash seguro de contraseñas no son medidas aisladas, sino capas que trabajan en conjunto para crear un sistema robusto bajo el principio de defensa en profundidad, donde la validación constante de tokens y permisos en cada petición nos recuerda que nunca debemos confiar ciegamente en el cliente. Los errores cometidos —como no enviar correctamente el token en el header `Authorization`, confundir autenticación con autorización o descuidar el rate limiting— nos han enseñado que los detalles aparentemente pequeños tienen grandes implicaciones en la seguridad. Sin embargo, esto es solo el comienzo, porque en producción la seguridad exige HTTPS, monitoreo continuo, logs de auditoría y renovación periódica de claves, reflejando que la seguridad no es un destino sino un proceso evolutivo donde cada decisión de diseño cuenta y donde proteger los datos del usuario no es solo una obligación técnica, sino un compromiso ético que define la confianza depositada en nuestro sistema.
+#### Link del video de explicacion
+https://www.loom.com/share/aeddb09c80c8458786d80b74b000cae2
+
+#### Link parte 2;
+https://www.loom.com/share/e7075bf1c1c6493891621e42516b140f
+
+#### Link parte 3
+https://www.loom.com/share/a3d7f8d9d7ba4caf8af19650c7a44c0c
+
+#### Link parte 4;
+https://www.loom.com/share/a79e7fcb1776442ba49b550cc334b9db
